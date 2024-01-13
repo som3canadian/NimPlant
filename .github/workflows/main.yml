@@ -2,7 +2,10 @@ name: Test NimPlant builds
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - som3canadian-dev
+      - som3canadian
   pull_request:
     branches: [ main ]
   workflow_dispatch:
