@@ -76,7 +76,10 @@ function InfoCardListServer() {
           <InfoCard icon={<FaInternetExplorer size='1.5em' />} content={
             <Skeleton visible={!serverInfo}>
               <Text>
-                Default Nimplant user agent: <Highlight>{serverInfo && `${serverInfo.config.userAgent}` && `${serverInfo.config.customHeaderOne}`}</Highlight>
+                Default Nimplant user agent: <Highlight>{serverInfo && `${serverInfo.config.userAgent}`}</Highlight>
+              </Text>
+              <Text>
+                customHeaderOne: <Highlight>{serverInfo && `${serverInfo.config.customHeaderOne}`}</Highlight>
               </Text>
             </Skeleton>
           } />
