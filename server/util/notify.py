@@ -1,6 +1,7 @@
 import os
 import requests
 import urllib.parse
+import json
 
 # This is a placeholder class for easy extensibility, more than anything
 # You can easily add your own notification method below, and call it in the 'notify_user' function
@@ -18,19 +19,18 @@ def notify_user(np):
             f"Internal IP: {np.ipAddrInt}\n```"
         )
 
-        if (
-            os.getenv("TELEGRAM_CHAT_ID") is not None
-            and os.getenv("TELEGRAM_BOT_TOKEN") is not None
-        ):
-            # Telegram notification
+        # Check for Telegram credentials
+        if os.getenv("TELEGRAM_CHAT_ID") and os.getenv("TELEGRAM_BOT_TOKEN"):
             notify_telegram(
                 message, os.getenv("TELEGRAM_CHAT_ID"), os.getenv("TELEGRAM_BOT_TOKEN")
             )
-        else:
-            # No relevant environment variables set, do not notify
-            pass
+
+        # Check for Discord webhook URL
+        if os.getenv("DISCORD_WEBHOOK_URL"):
+            notify_discord(message, os.getenv("DISCORD_WEBHOOK_URL"))
+
     except Exception as e:
-        print(f"An exception occurred while trying to send a push notification: {e}")
+        print(f"An exception occurred while trying to send a notification: {e}")
 
 
 def notify_telegram(message, telegram_chat_id, telegram_bot_token):
@@ -44,4 +44,16 @@ def notify_telegram(message, telegram_chat_id, telegram_bot_token):
         + message
     )
     response = requests.get(notification_request)
+    return response.json()
+
+def notify_discord(message, discord_webhook_url):
+    data = {
+        "content": message,
+        "username": "NimPlant Bot"  # You can customize the bot's name here
+    }
+    headers = {
+        "Content-Type": "application/json"
+    }
+    # Performing the POST request to the Discord webhook
+    response = requests.post(discord_webhook_url, data=json.dumps(data), headers=headers)
     return response.json()
