@@ -28,6 +28,7 @@ declare module Types {
         sleepTime: number;
         taskPath: string;
         userAgent: string;
+        customHeaderOne: string;
     }
 
     export interface ServerInfo {

@@ -48,7 +48,7 @@ function InfoCardListServer() {
               <Text>Listener running at <Highlight>{serverInfo && getListenerString(serverInfo)}</Highlight></Text>
             </Skeleton>
           } />
-        </Grid.Col>  
+        </Grid.Col>
       </Grid>
 
 
@@ -62,7 +62,7 @@ function InfoCardListServer() {
             <Skeleton visible={!serverInfo}>
               <Text>
                 Nimplants sleep for {' '}
-                <Highlight>{serverInfo && `${serverInfo.config.sleepTime}`}</Highlight> 
+                <Highlight>{serverInfo && `${serverInfo.config.sleepTime}`}</Highlight>
                 {' '}seconds (
                 <Highlight>{serverInfo && `${serverInfo.config.sleepJitter}`}%</Highlight>
                 {' '}jitter) by default. Kill date is{' '}
@@ -71,16 +71,16 @@ function InfoCardListServer() {
             </Skeleton>
           } />
         </Grid.Col>
-        
+
         <Grid.Col xs={2} md={1}>
           <InfoCard icon={<FaInternetExplorer size='1.5em' />} content={
             <Skeleton visible={!serverInfo}>
               <Text>
-                Default Nimplant user agent: <Highlight>{serverInfo && `${serverInfo.config.userAgent}`}</Highlight>
+                Default Nimplant user agent: <Highlight>{serverInfo && `${serverInfo.config.userAgent}` && `${serverInfo.config.customHeaderOne}`}</Highlight>
               </Text>
             </Skeleton>
           } />
-        </Grid.Col>  
+        </Grid.Col>
       </Grid>
     </Stack>
   )

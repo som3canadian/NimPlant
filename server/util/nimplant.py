@@ -40,6 +40,7 @@ class Server:
         self.sleepJitter = config["nimplant"]["sleepJitter"]
         self.killDate = config["nimplant"]["killDate"]
         self.userAgent = config["nimplant"]["userAgent"]
+        self.customHeaderOne = config["nimplant"]["customHeaderOne"]
 
     def asdict(self):
         return {
@@ -60,6 +61,7 @@ class Server:
             "sleepJitter": self.sleepJitter,
             "killDate": self.killDate,
             "userAgent": self.userAgent,
+            "customHeaderOne": self.customHeaderOne,
             "killed": self.killed,
         }
 

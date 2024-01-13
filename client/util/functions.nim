@@ -16,7 +16,7 @@ proc parseConfig*() : Table[string, string] =
 
     # Embed the configuration as a XORed sequence of bytes at COMPILE-time
     const embeddedConf = xorStringToByteSeq(staticRead(obf("../../config.toml")), xor_key)
-    
+
     # Decode the configuration at RUNtime and parse the TOML to store it in a basic table
     var tomlConfig = parsetoml.parseString(xorByteSeqToString(embeddedConf, xor_key))
     config[obf("hostname")] = tomlConfig[obf("listener")][obf("hostname")].getStr()
@@ -31,8 +31,9 @@ proc parseConfig*() : Table[string, string] =
     config[obf("sleepTime")] = $tomlConfig[obf("nimplant")][obf("sleepTime")].getInt()
     config[obf("sleepJitter")] = $tomlConfig[obf("nimplant")][obf("sleepJitter")].getInt()
     config[obf("userAgent")] = tomlConfig[obf("nimplant")][obf("userAgent")].getStr()
+    config[obf("customHeaderOne")] = tomlConfig[obf("nimplant")][obf("customHeaderOne")].getStr()
 
-    return config     
+    return config
 
 # Parse user commands that do not affect the listener object here
 proc parseCmd*(li : Listener, cmd : string, cmdGuid : string, args : seq[string]) : string =
@@ -99,7 +100,7 @@ proc parseCmd*(li : Listener, cmd : string, cmdGuid : string, args : seq[string]
                     result = obf("ERROR: An unknown command was received.")
             else:
                 result = obf("ERROR: An unknown command was received.")
-    
+
     # Catch unhandled exceptions during command execution (commonly OS exceptions)
     except:
         let

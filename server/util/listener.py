@@ -21,6 +21,7 @@ try:
     taskPath = config["listener"]["taskPath"]
     resultPath = config["listener"]["resultPath"]
     userAgent = config["nimplant"]["userAgent"]
+    customHeaderOne = config["nimplant"]["customHeaderOne"]
     if listenerType == "HTTPS":
         sslCertPath = config["listener"]["sslCertPath"]
         sslKeyPath = config["listener"]["sslKeyPath"]

