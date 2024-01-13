@@ -7,7 +7,6 @@ import json
 # You can easily add your own notification method below, and call it in the 'notify_user' function
 # It will then be called when a new implant checks in, passing the NimPlant object (see nimplant.py)
 
-
 def notify_user(np):
     try:
         message = (
@@ -29,6 +28,10 @@ def notify_user(np):
         if os.getenv("DISCORD_WEBHOOK_URL"):
             notify_discord(message, os.getenv("DISCORD_WEBHOOK_URL"))
 
+        else:
+            # No relevant environment variables set, do not notify
+            pass
+
     except Exception as e:
         print(f"An exception occurred while trying to send a notification: {e}")
 
@@ -49,7 +52,7 @@ def notify_telegram(message, telegram_chat_id, telegram_bot_token):
 def notify_discord(message, discord_webhook_url):
     data = {
         "content": message,
-        "username": "NimPlant Bot"  # You can customize the bot's name here
+        "username": "Capitain NimPlant"  # You can customize the bot's name here
     }
     headers = {
         "Content-Type": "application/json"
