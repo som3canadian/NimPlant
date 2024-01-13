@@ -1,4 +1,4 @@
-import { FaServer, FaClock, FaHeadphones, FaInternetExplorer, FaSkull } from "react-icons/fa"
+import { FaServer, FaClock, FaHeadphones, FaInternetExplorer, FaSkull, FaHeading } from "react-icons/fa"
 import { getListenerString, getServerInfo } from "../modules/nimplant";
 import { Grid, Title, Text, Button, Skeleton, Stack } from "@mantine/core"
 import { Highlight } from "./MainLayout";
@@ -83,12 +83,10 @@ function InfoCardListServer() {
         </Grid.Col>
 
         <Grid.Col xs={3} md={1}>
-          <InfoCard icon={<FaClock size='1.5em' />} content={
+          <InfoCard icon={<FaHeading size='1.5em' />} content={
             <Skeleton visible={!serverInfo}>
-              <Text>
-                <Highlight>X-Header: {serverInfo && `${serverInfo.config.xHeader}`}</Highlight>
-                <Highlight>X-ID: {serverInfo && `${serverInfo.config.xID}`}</Highlight>
-              </Text>
+                <Text>X-Header: <Highlight>{serverInfo && `${serverInfo.config.xHeader}`}</Highlight></Text>
+                <Text>X-ID: <Highlight>{serverInfo && `${serverInfo.config.xID}`}</Highlight></Text>
             </Skeleton>
           } />
         </Grid.Col>
