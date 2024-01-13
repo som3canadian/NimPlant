@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - som3canadian-dev
       - som3canadian
   pull_request:
     branches: [ main ]
