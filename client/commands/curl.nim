@@ -13,10 +13,10 @@ proc curl*(li : Listener, args : varargs[string]) : string =
         output = fetch(
                     url,
                     headers = @[
-                        Header(key: obf("User-Agent"), value: li.userAgent)
+                        Header(key: obf("User-Agent"), value: li.userAgent),
                         Header(key: obf("X-Header"), value: li.xHeader),
                         Header(key: obf("X-ID"), value: li.xID)
-                      ]
+                        ]
                     )
 
         if output == "":

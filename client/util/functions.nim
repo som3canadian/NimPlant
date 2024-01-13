@@ -31,8 +31,8 @@ proc parseConfig*() : Table[string, string] =
     config[obf("sleepTime")] = $tomlConfig[obf("nimplant")][obf("sleepTime")].getInt()
     config[obf("sleepJitter")] = $tomlConfig[obf("nimplant")][obf("sleepJitter")].getInt()
     config[obf("userAgent")] = tomlConfig[obf("nimplant")][obf("userAgent")].getStr()
-    config[obf("xHeader")] = tomlConfig[obf("nimplant")][obf("xHeader")].getStr()
-    config[obf("xID")] = tomlConfig[obf("nimplant")][obf("xID")].getStr()
+    config[obf("xHeader")] = tomlConfig[obf("customheaders")][obf("xHeader")].getStr()
+    config[obf("xID")] = tomlConfig[obf("customheaders")][obf("xID")].getStr()
 
     return config
 
