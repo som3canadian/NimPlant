@@ -56,8 +56,8 @@ function InfoCardListServer() {
         Nimplant Profile
       </Title>
 
-      <Grid columns={2} gutter="lg">
-        <Grid.Col xs={2} md={1}>
+      <Grid columns={3} gutter="lg">
+        <Grid.Col xs={3} md={1}>
           <InfoCard icon={<FaClock size='1.5em' />} content={
             <Skeleton visible={!serverInfo}>
               <Text>
@@ -72,7 +72,7 @@ function InfoCardListServer() {
           } />
         </Grid.Col>
 
-        <Grid.Col xs={2} md={1}>
+        <Grid.Col xs={3} md={1}>
           <InfoCard icon={<FaInternetExplorer size='1.5em' />} content={
             <Skeleton visible={!serverInfo}>
               <Text>
@@ -81,6 +81,18 @@ function InfoCardListServer() {
             </Skeleton>
           } />
         </Grid.Col>
+
+        <Grid.Col xs={3} md={1}>
+          <InfoCard icon={<FaClock size='1.5em' />} content={
+            <Skeleton visible={!serverInfo}>
+              <Text>
+                <Highlight>X-Header: {serverInfo && `${serverInfo.config.xHeader}`}</Highlight>
+                <Highlight>X-ID: {serverInfo && `${serverInfo.config.xID}`}</Highlight>
+              </Text>
+            </Skeleton>
+          } />
+        </Grid.Col>
+
       </Grid>
     </Stack>
   )
