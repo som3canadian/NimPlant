@@ -19,23 +19,14 @@ def notify_user(np):
         )
 
         # Check for Telegram credentials
-        if (
-            os.getenv("TELEGRAM_CHAT_ID") is not None
-            and os.getenv("TELEGRAM_BOT_TOKEN") is not None
-        ):
-            # Telegram notification
+        if os.getenv("TELEGRAM_CHAT_ID") and os.getenv("TELEGRAM_BOT_TOKEN"):
             notify_telegram(
                 message, os.getenv("TELEGRAM_CHAT_ID"), os.getenv("TELEGRAM_BOT_TOKEN")
             )
 
         # Check for Discord webhook URL
-        if (
-            os.getenv("DISCORD_WEBHOOK_URL") is not None
-        ):
-            # Telegram notification
-            notify_discord(
-                message, os.getenv("DISCORD_WEBHOOK_URL")
-            )
+        if os.getenv("DISCORD_WEBHOOK_URL"):
+            notify_discord(message, os.getenv("DISCORD_WEBHOOK_URL"))
 
         else:
             # No relevant environment variables set, do not notify
