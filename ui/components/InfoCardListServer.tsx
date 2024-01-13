@@ -78,9 +78,6 @@ function InfoCardListServer() {
               <Text>
                 Default Nimplant user agent: <Highlight>{serverInfo && `${serverInfo.config.userAgent}`}</Highlight>
               </Text>
-              <Text>
-                customHeaderOne: <Highlight>{serverInfo && `${serverInfo.config.customHeaderOne}`}</Highlight>
-              </Text>
             </Skeleton>
           } />
         </Grid.Col>

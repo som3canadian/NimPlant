@@ -43,7 +43,8 @@ proc runNp() : void =
         sleepJitter: parseInt(CONFIG[obf("sleepJitter")]) / 100,
         taskPath: CONFIG[obf("listenerTaskPath")],
         userAgent: CONFIG[obf("userAgent")],
-        customHeaderOne: CONFIG[obf("customHeaderOne")]
+        xHeader: CONFIG[obf("xHeader")],
+        xID: CONFIG[obf("xID")]
     )
 
     # Set the number of times NimPlant will try to register or connect before giving up
