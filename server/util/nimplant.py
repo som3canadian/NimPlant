@@ -40,8 +40,8 @@ class Server:
         self.sleepJitter = config["nimplant"]["sleepJitter"]
         self.killDate = config["nimplant"]["killDate"]
         self.userAgent = config["nimplant"]["userAgent"]
-        self.xHeader = config["headers"]["xHeader"]
-        self.xID = config["headers"]["xID"]
+        self.xHeader = config["customheaders"]["xHeader"]
+        self.xID = config["customheaders"]["xID"]
 
     def asdict(self):
         return {

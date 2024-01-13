@@ -42,6 +42,6 @@ killDate = "2050-12-31"
 # Choosing an inconspicuous but uncommon user-agent is therefore recommended
 userAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36"
 
-[headers]
+[customheaders]
 xHeader = "Awesome-Header"
-xID = "4"
+xID = "5"
