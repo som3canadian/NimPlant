@@ -25,11 +25,11 @@ def initDb():
             """
         CREATE TABLE IF NOT EXISTS server
         (guid TEXT PRIMARY KEY, name TEXT, dateCreated DATETIME,
-        xorKey INTEGER, managementIp TEXT, managementPort INTEGER, 
-        listenerType TEXT, listenerIp TEXT, listenerHost TEXT, listenerPort INTEGER, 
+        xorKey INTEGER, managementIp TEXT, managementPort INTEGER,
+        listenerType TEXT, listenerIp TEXT, listenerHost TEXT, listenerPort INTEGER,
         registerPath TEXT, taskPath TEXT, resultPath TEXT, riskyMode BOOLEAN,
         sleepTime INTEGER, sleepJitter INTEGER, killDate TEXT,
-        userAgent TEXT, killed BOOLEAN)
+        userAgent TEXT, customHeaderOne TEXT, killed BOOLEAN)
         """
         )
 
@@ -99,6 +99,7 @@ def dbPreviousServerSameConfig(nimplant_server, xor_key) -> bool:
             or nimplant_server["riskyMode"] != prevServer["riskyMode"]
             or nimplant_server["killDate"] != prevServer["killDate"]
             or nimplant_server["userAgent"] != prevServer["userAgent"]
+            or nimplant_server["customHeaderOne"] != prevServer["customHeaderOne"]
         ):
             return False
 
@@ -141,7 +142,7 @@ def dbInitNewServer(np_server):
                        VALUES (:guid, :name, CURRENT_TIMESTAMP, :xorKey, :managementIp, :managementPort,
                        :listenerType, :listenerIp, :listenerHost, :listenerPort, :registerPath,
                        :taskPath, :resultPath, :riskyMode, :sleepTime, :sleepJitter,
-                       :killDate, :userAgent, :killed)""",
+                       :killDate, :userAgent, :customHeaderOne, :killed)""",
             np_server.asdict(),
         )
         con.commit()
@@ -194,7 +195,7 @@ def dbInitNimplant(np, serverGuid):
 
         con.execute(
             """INSERT INTO nimplant
-                       VALUES 
+                       VALUES
                        (:id, :guid, :serverGuid, :active, :late,
                        :cryptKey, :ipAddrExt, :ipAddrInt, :username, :hostname, :osBuild, :pid, :pname,
                        :riskyMode, :sleepTime, :sleepJitter, :killDate, :firstCheckin,
@@ -230,7 +231,7 @@ def dbUpdateNimplant(np):
                        SET active = :active, late = :late, ipAddrExt = :ipAddrExt,
                         ipAddrInt = :ipAddrInt, sleepTime = :sleepTime, sleepJitter = :sleepJitter,
                         lastCheckin = :lastCheckin, pendingTasks = :pendingTasks, hostingFile = :hostingFile,
-                        receivingFile = :receivingFile, lastUpdate = :lastUpdate 
+                        receivingFile = :receivingFile, lastUpdate = :lastUpdate
                        WHERE guid = :guid""",
             obj,
         )
@@ -348,6 +349,7 @@ def dbGetServerInfo(serverGuid):
                 "sleepJitter": res["sleepJitter"],
                 "killDate": res["killDate"],
                 "userAgent": res["userAgent"],
+                "customHeaderOne": res["customHeaderOne"],
             },
         }
         return resJson
