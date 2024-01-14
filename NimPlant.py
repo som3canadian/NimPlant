@@ -80,10 +80,10 @@ def getXorKey(force_new=False):
 
 def compile_implant(implant_type, binary_type, xor_key):
     if implant_type == "nim-debug":
-        message = "NimPlant with debugging enabled"
+        message = "NimP with debugging enabled"
         compile_function = compile_nim_debug
     else:
-        message = "NimPlant"
+        message = "NimP"
         compile_function = compile_nim
 
     if binary_type == "exe":
@@ -111,7 +111,7 @@ def compile_implant(implant_type, binary_type, xor_key):
 
 def compile_nim_debug(binary_type, _):
     if binary_type == "exe-selfdelete":
-        print("ERROR: Cannot compile self-deleting NimPlant with debugging enabled!")
+        print("ERROR: Cannot compile self-deleting NimP with debugging enabled!")
         print(
             "       Please test with the regular executable first, then compile the self-deleting version."
         )
@@ -153,11 +153,11 @@ def compile_nim(binary_type, xor_key, debug=False):
             compile_command = compile_command + " -d=mingw"
 
         if binary_type == "exe":
-            compile_command = compile_command + " -o:client/bin/NimPlant.exe"
+            compile_command = compile_command + " -o:client/bin/SomePlant.exe"
 
         if binary_type == "exe-selfdelete":
             compile_command = (
-                compile_command + " -o:client/bin/NimPlant-selfdelete.exe -d:selfdelete"
+                compile_command + " -o:client/bin/SomePlant-selfdelete.exe -d:selfdelete"
             )
 
         if binary_type == "dll":
@@ -191,7 +191,7 @@ def compile_nim(binary_type, xor_key, debug=False):
         # Convert DLL to PIC using sRDI
         dll = open("client/bin/SomePlant.dll", "rb").read()
         shellcode = ConvertToShellcode(dll, HashFunctionName("Update"), flags=0x4)
-        with open("client/bin/NimPlant.bin", "wb") as f:
+        with open("client/bin/SomePlant.bin", "wb") as f:
             f.write(shellcode)
 
 
