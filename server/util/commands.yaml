@@ -244,7 +244,7 @@
 
       Lists any registered Antivirus and/or EDR products on the target using WMI.
 
-  - command: getDom
+  - command: getSomeDom
     server_command: False
     risky_command: False
     gui_command: False
@@ -456,7 +456,7 @@
       This command downloads a file from a URL to the victim machine.
       If no remote file path is specified, the file will be downloaded to the current working directory.
 
-  - command: whoami
+  - command: whowho
     server_command: False
     risky_command: False
     gui_command: False

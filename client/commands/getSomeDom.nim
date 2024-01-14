@@ -3,8 +3,8 @@ from winim/utils import `&`
 import winim/inc/[windef, winbase]
 
 # Get the current domain of the computer via the GetComputerNameEx API
-proc getDom*() : string =
-    var 
+proc getSomeDom*() : string =
+    var
         buf : array[257, TCHAR]
         lpBuf :  LPWSTR = addr buf[0]
         pcbBuf : DWORD = int32(len(buf))

@@ -11,23 +11,23 @@ proc isUserElevated(): bool =
     tokenHandle: HANDLE
     elevation = TOKEN_ELEVATION()
     cbsize: DWORD = 0
-  
+
   if OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, cast[PHANDLE](addr(tokenHandle))) == 0:
     when defined verbose:
       echo obf("DEBUG: Cannot query tokens: ") & $GetLastError()
     return false
-  
+
   if GetTokenInformation(tokenHandle, tokenElevation, cast[LPVOID](addr(elevation)), cast[DWORD](sizeOf(elevation)), cast[PDWORD](addr(cbsize))) == 0:
     when defined verbose:
       echo obf("DEBUG: Cannot retrieve token information: ") & $GetLastError()
     discard CloseHandle(tokenHandle)
     return false
-  
+
   result = elevation.TokenIsElevated != 0
 
 # Get the current username via the GetUserName API
-proc whoami*() : string =
-    var 
+proc whowho*() : string =
+    var
       buf = newWString(UNLEN + 1)
       cb = DWORD buf.len
 

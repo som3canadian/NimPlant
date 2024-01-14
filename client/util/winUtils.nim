@@ -3,7 +3,7 @@ from os import getCurrentProcessId, splitPath, getAppFilename, createDir, walkDi
 from winim/lean import CopyFileA, GetComputerNameW, winstrConverterStringToPtrChar
 from winim/utils import `&`
 import winim/inc/[windef, winbase]
-import ../commands/whoami
+import ../commands/whowho
 import strenc
 
 # https://github.com/nim-lang/Nim/issues/11481
@@ -45,7 +45,7 @@ proc getWindowsVersion*() : string =
 proc copyDir*(source, dest: string) =
     createDir(dest)
     for kind, path in walkDir(source):
-        var 
+        var
             noSource = splitPath(path).tail
             dPath = dest / noSource
         if kind == pcDir:
@@ -58,16 +58,16 @@ proc moveDir*(source, dest: string) =
     removeDir(source)
 
 # Get the username
-proc getUsername*() : string = 
-    result = whoami()
+proc getUsername*() : string =
+    result = whowho()
 
 # Get the hostname
-proc getHost*() : string = 
-    var 
+proc getHost*() : string =
+    var
         buf : array[257, TCHAR]
         lpBuf :  LPWSTR = addr buf[0]
         pcbBuf : DWORD = int32(len(buf))
-        
+
     discard GetComputerNameW(lpBuf, &pcbBuf)
     for character in buf:
         if character == 0: break
