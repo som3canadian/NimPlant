@@ -177,7 +177,7 @@ def flaskListener(xor_key):
                         # Construct a GZIP stream of the file to upload in-memory
                         # Note: We 'double-compress' here since compression has little use after encryption,
                         #       but we want to present the file as a GZIP stream anyway
-                        taskGuid = flask.request.headers.get("X-Unique-ID")
+                        taskGuid = flask.request.headers.get("X-ID-Unique")
                         with open(np.hostingFile, mode="rb") as contents:
                             processedFile = encryptData(
                                 compress(contents.read()), np.cryptKey
@@ -235,7 +235,7 @@ def flaskListener(xor_key):
             if userAgent == flask.request.headers.get("User-Agent"):
                 if np.receivingFile != None:
                     try:
-                        taskGuid = flask.request.headers.get("X-Unique-ID")
+                        taskGuid = flask.request.headers.get("X-ID-Unique")
                         uncompressed_file = gzip.decompress(
                             decryptBinaryData(flask.request.data, np.cryptKey)
                         )

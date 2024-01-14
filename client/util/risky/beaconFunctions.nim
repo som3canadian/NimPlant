@@ -218,9 +218,9 @@ proc BeaconPrintf(typeArg:int,fmt:ptr char):void{.stdcall, varargs.} =
     beaconCompatibilitySize += length
     beaconCompatibilityOffset += length
     va_end(args)
-    
-    
-    
+
+
+
 
 #void   BeaconOutput(int type, char* data, int len);
 proc BeaconOutput(typeArg:int,data:ptr char,len:int):void{.stdcall.} =
@@ -238,8 +238,8 @@ proc BeaconOutput(typeArg:int,data:ptr char,len:int):void{.stdcall.} =
         if(beacon_compatibility_output != nil):
         tempPtr = HeapReAlloc(GetProcessHeap(),HEAP_ZERO_MEMORY,beacon_compatibility_output,)
     ]#
-    
-# Token Functions 
+
+# Token Functions
 
 # BOOL   BeaconUseToken(HANDLE token);
 proc BeaconUseToken(token: HANDLE):BOOL{.stdcall.} =
@@ -255,12 +255,12 @@ proc BeaconRevertToken():void{.stdcall.} =
 proc BeaconIsAdmin():BOOL{.stdcall.} =
     return FALSE
 
-# Spawn+Inject Functions 
+# Spawn+Inject Functions
 # void   BeaconGetSpawnTo(BOOL x86, char* buffer, int length);
-proc BeaconGetSpawnTo(x86: BOOL, buffer:ptr char, length:int):void{.stdcall.} =
+proc BeaconSomeGetSpawnTo(x86: BOOL, buffer:ptr char, length:int):void{.stdcall.} =
     var tempBufferPath:string = ""
     if(cast[uint64](buffer) == 0):
-        return 
+        return
     if(x86):
         tempBufferPath = obf("C:\\Windows\\SysWOW64\\rundll32.exe")
         if(tempBufferPath.len > length):
@@ -283,7 +283,7 @@ proc BeaconSpawnTemporaryProcess(x86: BOOL, ignoreToken:BOOL, sInfo:ptr STARTUPI
 
 # void   BeaconInjectProcess(HANDLE hProc, int pid, char* payload, int p_len, int p_offset, char* arg, int a_len);
 # Not implemented
-proc BeaconInjectProcess(hProc: HANDLE, pid:int, payload:ptr char, p_len: int,p_offset: int, arg:ptr char, a_len:int):void{.stdcall.} =
+proc BeaconSomeInjectProcess(hProc: HANDLE, pid:int, payload:ptr char, p_len: int,p_offset: int, arg:ptr char, a_len:int):void{.stdcall.} =
     return
 
 # void   BeaconInjectTemporaryProcess(PROCESS_INFORMATION* pInfo, char* payload, int p_len, int p_offset, char* arg, int a_len);
@@ -296,7 +296,7 @@ proc BeaconCleanupProcess(pInfo: ptr PROCESS_INFORMATION):void{.stdcall.} =
     CloseHandle(pInfo.hThread)
     CloseHandle(pInfo.hProcess)
 
-# Utility Functions 
+# Utility Functions
 # BOOL   toWideChar(char* src, wchar_t* dst, int max); TODO FIX
 # Not implemented
 proc toWideChar(src:ptr char,dst: ptr char ,max: int):BOOL{.stdcall.} =
@@ -331,9 +331,9 @@ var functionAddresses*:array[23,tuple[name: string, address: uint64]] = [
     (obf("BeaconUseToken"), cast[uint64](BeaconUseToken)),
     (obf("BeaconRevertToken"), cast[uint64](BeaconRevertToken)),
     (obf("BeaconIsAdmin"), cast[uint64](BeaconIsAdmin)),
-    (obf("BeaconGetSpawnTo"), cast[uint64](BeaconGetSpawnTo)),
+    (obf("BeaconSomeGetSpawnTo"), cast[uint64](BeaconSomeGetSpawnTo)),
     (obf("BeaconSpawnTemporaryProcess"), cast[uint64](BeaconSpawnTemporaryProcess)),
-    (obf("BeaconInjectProcess"), cast[uint64](BeaconInjectProcess)),
+    (obf("BeaconSomeInjectProcess"), cast[uint64](BeaconSomeInjectProcess)),
     (obf("BeaconInjectTemporaryProcess"), cast[uint64](BeaconInjectTemporaryProcess)),
     (obf("BeaconCleanupProcess"), cast[uint64](BeaconCleanupProcess)),
     (obf("toWideChar"), cast[uint64](toWideChar))

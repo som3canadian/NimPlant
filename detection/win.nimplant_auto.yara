@@ -33,7 +33,7 @@ rule win_nimplant_auto {
             // n = 7, score = 100
             //   4c89e9               | add                 edx, edx
             //   0f11642440           | dec                 eax
-            //   e8????????           |                     
+            //   e8????????           |
             //   803b00               | add                 eax, 3
             //   0f8515ffffff         | dec                 eax
             //   488b4c2468           | cmp                 ecx, edx
@@ -43,7 +43,7 @@ rule win_nimplant_auto {
             // n = 7, score = 100
             //   894c2430             | dec                 eax
             //   4889ac24b0000000     | lea                 eax, [0x589ec]
-            //   e9????????           |                     
+            //   e9????????           |
             //   4981ffff7f0000       | dec                 eax
             //   4c89f2               | mov                 dword ptr [ecx + 0x18], 0x24
             //   488b4b08             | dec                 eax
@@ -57,11 +57,11 @@ rule win_nimplant_auto {
             //   48c741183a000000     | mov                 eax, 0x4909bf2b
             //   48c7410800000000     | dec                 esp
             //   48c7442420a1060000     | mov    edx, ebp
-            //   e8????????           |                     
+            //   e8????????           |
 
         $sequence_3 = { e8???????? 488b442440 488b542448 44886c0208 4883c001 0f8093040000 488b542448 }
             // n = 7, score = 100
-            //   e8????????           |                     
+            //   e8????????           |
             //   488b442440           | sub                 esp, 0x1d8
             //   488b542448           | inc                 ecx
             //   44886c0208           | mov                 eax, 0x7f2bfd03
@@ -71,7 +71,7 @@ rule win_nimplant_auto {
 
         $sequence_4 = { e8???????? 4c8b442430 48ba0000000000000040 4889f1 4c01e9 0f80b1000000 4885c9 }
             // n = 7, score = 100
-            //   e8????????           |                     
+            //   e8????????           |
             //   4c8b442430           | por                 mm2, mm4
             //   48ba0000000000000040     | por    xmm3, xmm2
             //   4889f1               | inc                 ecx
@@ -81,7 +81,7 @@ rule win_nimplant_auto {
 
         $sequence_5 = { f30f6f25???????? 4889ea 41b8a94d975e 4c89e9 4c899c2408010000 4c89942400010000 0f11a42410010000 }
             // n = 7, score = 100
-            //   f30f6f25????????     |                     
+            //   f30f6f25????????     |
             //   4889ea               | mov                 edx, dword ptr [esp + 0x40]
             //   41b8a94d975e         | dec                 eax
             //   4c89e9               | mov                 eax, dword ptr [esp + 0x48]
@@ -101,7 +101,7 @@ rule win_nimplant_auto {
 
         $sequence_7 = { e8???????? 803b00 488b942488000000 488b842480000000 0f8599feffff 4c8b4e58 4c89f1 }
             // n = 7, score = 100
-            //   e8????????           |                     
+            //   e8????????           |
             //   803b00               | dec                 esp
             //   488b942488000000     | mov                 ecx, esp
             //   488b842480000000     | je                  0x1a7

