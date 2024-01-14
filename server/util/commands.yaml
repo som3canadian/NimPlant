@@ -6,7 +6,7 @@
     description: "Cancel all pending tasks."
     help: |
       Takes no arguments.
-      
+
       Cancel will cancel all queued tasks. Any tasks that are currently running will not be affected.
 
   - command: clear
@@ -16,7 +16,7 @@
     description: "Clear the screen."
     help: |
       Takes no arguments.
-      
+
       Will clear the screen (console mode only).
 
   - command: getpid
@@ -26,7 +26,7 @@
     description: "Show process ID of the currently selected NimPlant."
     help: |
       Takes no arguments.
-      
+
       Will show the process ID of the currently selected NimPlant. Does not interact with NimPlant.
 
   - command: getprocname
@@ -36,7 +36,7 @@
     description: "Show process name of the currently selected NimPlant."
     help: |
       Takes no arguments.
-      
+
       Will show the process name of the currently selected NimPlant. Does not interact with NimPlant.
 
   - command: help
@@ -46,10 +46,10 @@
     description: "<command> Show this help menu or command-specific help."
     help: |
       Takes an optional argument indicating the command to show extended help for.
-      
+
       Shows the help menu or command-specific help.
-      If no command is specified, the help menu will be shown. 
-      If a command is specified, extended help for that command will be shown. 
+      If no command is specified, the help menu will be shown.
+      If a command is specified, extended help for that command will be shown.
       But I guess you already figured that out since you're reading this :)
 
   - command: hostname
@@ -59,7 +59,7 @@
     description: "Show hostname of the currently selected NimPlant."
     help: |
       Takes no arguments.
-      
+
       Will show the hostname of the currently selected NimPlant. Does not interact with NimPlant.
 
   - command: ipconfig
@@ -69,7 +69,7 @@
     description: "List IP address information of the currently selected NimPlant."
     help: |
       Takes no arguments.
-      
+
       Will show the IP address configuration of the currently selected NimPlant. Does not interact with NimPlant.
 
   - command: list
@@ -79,7 +79,7 @@
     description: "Show list of active NimPlants."
     help: |
       Takes no arguments.
-      
+
       Will show a list of all NimPlants that are currently active. Mostly useful in console mode.
 
   - command: listall
@@ -89,7 +89,7 @@
     description: "Show list of all NimPlants."
     help: |
       Takes no arguments.
-      
+
       Will show a list of all NimPlants, including inactive ones. Mostly useful in console mode.
 
   - command: nimplant
@@ -99,7 +99,7 @@
     description: "Show info about the currently selected NimPlant."
     help: |
       Takes no arguments.
-      
+
       Will show all known information about the currently selected NimPlant. Does not interact with NimPlant.
 
   - command: osbuild
@@ -109,7 +109,7 @@
     description: "Show operating system build information for the currently selected NimPlant."
     help: |
       Takes no arguments.
-      
+
       Will show the operating system build information for the currently selected NimPlant. Does not interact with NimPlant.
 
   - command: select
@@ -120,7 +120,7 @@
     help: |
       Takes the target NimPlant's ID as an argument.
 
-      Will select the NimPlant with the specified ID (from the 'list' command) as the currently selected NimPlant. 
+      Will select the NimPlant with the specified ID (from the 'list' command) as the currently selected NimPlant.
       This is only useful in console mode.
 
   - command: exit
@@ -130,7 +130,7 @@
     description: "Exit the server, killing all NimPlants."
     help: |
       Takes no arguments.
-      
+
       Will gracefully exit the server.
 
       CAUTION: Will send a kill signal to ALL ACTIVE NIMPLANTS!
@@ -184,11 +184,11 @@
     description: "[remotefilepath] <localfilepath> Download a file from NimPlant's disk to the NimPlant server."
     help: |
       Takes a remote file path as an argument, and an optional local file path on the NimPlant server as a second argument.
-      If a local file path is specified, the downloaded file will be saved to that path on the NimPlant server. 
+      If a local file path is specified, the downloaded file will be saved to that path on the NimPlant server.
       If no local file path is specified, the downloaded file will be saved in 'server/downloads/server-[server-guid]',
       where it will be accessible in the 'Downloads' tab of the web GUI.
 
-      Will download the specified file from the target system to the NimPlant server. 
+      Will download the specified file from the target system to the NimPlant server.
 
   - command: env
     server_command: False
@@ -205,7 +205,7 @@
     help: |
       [RISKY COMMAND, GUI COMMAND]
       Takes two optional arguments to indicate whether or not AMSI and ETW should be patched (patched by default, unless already patched).
-      Additionally, takes a mandatory argument with the local file path to the .NET assembly to execute, 
+      Additionally, takes a mandatory argument with the local file path to the .NET assembly to execute,
       and optionally any arguments to pass to the assembly.
 
       This command executes a C# / .NET assembly binary. NimPlant will return the console output of the executed .NET assembly.
@@ -231,10 +231,10 @@
       This command executes a Beacon Object File (BOF). NimPlant will return the console output of the executed BOF.
       For more information and examples, refer to the NimPlant README file.
 
-      CAUTION: BOFs are volatile by nature, and running a faulty BOF or passing wrong arguments or types WILL crash your NimPlant session! 
+      CAUTION: BOFs are volatile by nature, and running a faulty BOF or passing wrong arguments or types WILL crash your NimPlant session!
       Make sure to test BOFs before deploying!
 
-  - command: getAv
+  - command: getSomeAv
     server_command: False
     risky_command: False
     gui_command: False
@@ -254,7 +254,7 @@
 
       Will return the domain the target is joined to via the 'GetComputerNameEx' Windows API.
 
-  - command: getLocalAdm
+  - command: getSomeLocalAdm
     server_command: False
     risky_command: False
     gui_command: False
@@ -282,7 +282,7 @@
     help: |
       Takes an optional path on the target system as an argument.
 
-      Will list the files and folders in the specified directory. 
+      Will list the files and folders in the specified directory.
       If no path is specified, will list the files and folders in the current working directory.
 
   - command: mkdir
@@ -358,7 +358,7 @@
     gui_command: False
     description: "[binary] <arguments> Run a binary from disk. Returns output but blocks NimPlant while running."
     help: |
-      Takes a mandatory argument with the path on the target system pointing to the binary to run, 
+      Takes a mandatory argument with the path on the target system pointing to the binary to run,
       and optionally takes any arguments to pass to the binary.
 
       This command executes a binary on the target system. NimPlant will return the console output of the executed binary.
@@ -429,8 +429,8 @@
       Takes two optional arguments to indicate whether AMSI and ETW should be bypassed, and a mandatory argument with the PowerShell command to execute.
 
       This command executes a PowerShell command in an unmanaged runspace.
-      While this does NOT spawn a child process or any instance of 'powershell.exe', 
-      it does load the Common Language Runtime (CLR) into the current process, and opens a console via the 'conhost.exe' process. 
+      While this does NOT spawn a child process or any instance of 'powershell.exe',
+      it does load the Common Language Runtime (CLR) into the current process, and opens a console via the 'conhost.exe' process.
       Be mindful of the OPSEC implications of this.
 
   - command: upload
@@ -442,7 +442,7 @@
       [GUI COMMAND]
       Takes a mandatory argument with the local path to the file to upload, and optionally takes a remote path to upload the file to.
 
-      This command uploads a file from the NimPlant server to the victim machine. 
+      This command uploads a file from the NimPlant server to the victim machine.
       If no remote path is specified, the file will be uploaded to the current working directory.
 
   - command: wget
@@ -453,7 +453,7 @@
     help: |
       Takes a mandatory argument with the URL to download, and optionally takes a remote file path to save the downloaded file to.
 
-      This command downloads a file from a URL to the victim machine. 
+      This command downloads a file from a URL to the victim machine.
       If no remote file path is specified, the file will be downloaded to the current working directory.
 
   - command: whoami
@@ -464,5 +464,5 @@
     help: |
       Takes no arguments.
 
-      Will return the user ID that NimPlant is running as using the Windows API. 
+      Will return the user ID that NimPlant is running as using the Windows API.
       Will add an asterisk to the name (*) if the user's token is elevated.

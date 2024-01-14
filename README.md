@@ -22,7 +22,7 @@ If NimPlant has been useful to you and/or you like my work in general, your supp
 
 # Feature Overview
 
-- Lightweight and configurable implant written in the Nim programming language 
+- Lightweight and configurable implant written in the Nim programming language
 - Pretty web GUI that will make you look cool during all your ops
 - Encryption and compression of all traffic by default, obfuscates static strings in implant artefacts
 - Support for several implant types, including native binaries (exe/dll), shellcode or self-deleting executables
@@ -139,7 +139,7 @@ Once you have your binaries ready, you can spin up your NimPlant server! No addi
 - Logs, uploaded/downloaded files, and the database can be cleaned up by running `NimPlant.py` with the `cleanup` flag. Caution: This will purge everything, so make sure to back up what you need first!
 
 ```
-PS C:\NimPlant> python .\NimPlant.py server     
+PS C:\NimPlant> python .\NimPlant.py server
 
                   *    *(#    #
                   **  **(##  ##
@@ -170,7 +170,7 @@ PS C:\NimPlant> python .\NimPlant.py server
 [06/02/2023 10:47:23] Started NimPlant listener on https://0.0.0.0:443. CTRL-C to cancel waiting for NimPlants.
 ```
 
-This will start both the C2 API and management web server (in the example above at `http://127.0.0.1:31337`) and the NimPlant listener (in the example above at `https://0.0.0.0:443`). Once a NimPlant checks in, you can use both the web interface and the console to send commands to NimPlant. 
+This will start both the C2 API and management web server (in the example above at `http://127.0.0.1:31337`) and the NimPlant listener (in the example above at `https://0.0.0.0:443`). Once a NimPlant checks in, you can use both the web interface and the console to send commands to NimPlant.
 
 Available commands are as follows. You can get detailed help for any command by typing `help [command]`. Certain commands denoted with (GUI) can be configured graphically when using the web interface, this can be done by calling the command without any arguments.
 
@@ -224,7 +224,7 @@ whoami            Get the user ID that NimPlant is running as.
 
 **NOTE: BOFs are volatile by nature, and running a faulty BOF or passing wrong arguments or types WILL crash your NimPlant session! Make sure to test BOFs before deploying!**
 
-NimPlant supports the in-memory loading of BOFs thanks to the great [NiCOFF project](https://github.com/frkngksl/NiCOFF). Running a bof requires a local compiled BOF object file (usually called something like `bofname.x64.o`), an entrypoint (commonly `go`), and a list of arguments with their respective argument types. Arguments are passed as a space-seperated `arg argtype` pair. 
+NimPlant supports the in-memory loading of BOFs thanks to the great [NiCOFF project](https://github.com/frkngksl/NiCOFF). Running a bof requires a local compiled BOF object file (usually called something like `bofname.x64.o`), an entrypoint (commonly `go`), and a list of arguments with their respective argument types. Arguments are passed as a space-seperated `arg argtype` pair.
 
 Argument are given in accordance with the "Zzsib" format, so can be either `string` (alias: `z`), `wstring` (or `Z`), `integer` (aliases: `int` or `i`), `short` (`s`), or `binary` (`bin` or `b`). Binary arguments can be a raw binary string or base64-encoded, the latter is recommended to avoid bad characters.
 
@@ -252,7 +252,7 @@ inline-execute enum_filter_driver.x64.o go "" z       # OK      - arguments are 
 By default, NimPlant support push notifications via the `notify_user()` hook defined in `server/util/notify.py`. By default, it implements a simple Telegram notification which requires the `TELEGRAM_CHAT_ID` and `TELEGRAM_BOT_TOKEN` environment variables to be set before it will fire. Of course, the code can be easily extended with one's own push notification functionality. The `notify_user()` hook is called when a new NimPlant checks in, and receives an object with NimPlant details, which can then be pushed as desired.
 
 #### Building the frontend
-As a normal user, you shouldn't have to modify or re-build the UI that comes with Nimplant. However, if you so desire to make changes, install NodeJS and run an `npm install` while in the `ui` directory. Then run `ui/build-ui.py`. This will take care of pulling the packages, compiling the Next.JS frontend, and placing the files in the right location for the Nimplant server to use them. 
+As a normal user, you shouldn't have to modify or re-build the UI that comes with Nimplant. However, if you so desire to make changes, install NodeJS and run an `npm install` while in the `ui` directory. Then run `ui/build-ui.py`. This will take care of pulling the packages, compiling the Next.JS frontend, and placing the files in the right location for the Nimplant server to use them.
 
 #### A word on production use and OPSEC
 NimPlant was developed as a learning project and released to the public for transparency and educational purposes. For a large part, it makes no effort to hide its intentions. Additionally, protections have been put in place to prevent abuse. In other words, **do NOT use NimPlant in production engagements as-is without thorough source code review and modifications**! Also remember that, as with any C2 framework, the OPSEC fingerprint of running certain commands should be considered before deployment. NimPlant can be compiled without OPSEC-risky commands by setting `riskyMode` to `false` in `config.toml`.
