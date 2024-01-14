@@ -44,7 +44,7 @@ proc doRequest(li : Listener, path : string, postKey : string = "", postValue : 
             # Only send ID header once listener is registered
             if li.id != "":
                 headers = @[
-                        Header(key: "X-Identifier", value: li.id),
+                        Header(key: "Some-Identifier", value: li.id),
                         Header(key: "User-Agent", value: li.userAgent),
                         Header(key: "X-Header", value: li.xHeader),
                         Header(key: "X-ID", value: li.xID)
@@ -71,7 +71,7 @@ proc doRequest(li : Listener, path : string, postKey : string = "", postValue : 
                 url: parseUrl(target),
                 verb: "post",
                 headers: @[
-                    Header(key: "X-Identifier", value: li.id),
+                    Header(key: "Some-Identifier", value: li.id),
                     Header(key: "User-Agent", value: li.userAgent),
                     Header(key: "X-Header", value: li.xHeader),
                     Header(key: "X-ID", value: li.xID),
