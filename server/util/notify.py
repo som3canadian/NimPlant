@@ -2,12 +2,15 @@ import os
 import requests
 import urllib.parse
 import json
+import datetime
 
 # This is a placeholder class for easy extensibility, more than anything
 # You can easily add your own notification method below, and call it in the 'notify_user' function
 # It will then be called when a new implant checks in, passing the NimPlant object (see nimplant.py)
 
 def notify_user(np):
+    current_time = datetime.datetime.now().strftime("%H:%M:%S")
+    # print("Current Time =", current_time)
     try:
         message = (
             "*A new NimPlant checked in!*\n\n"
@@ -15,7 +18,8 @@ def notify_user(np):
             f"Hostname: {np.hostname}\n"
             f"OS build: {np.osBuild}\n"
             f"External IP: {np.ipAddrExt}\n"
-            f"Internal IP: {np.ipAddrInt}\n```"
+            f"Internal IP: {np.ipAddrInt}\n"
+            f"Time: {current_time}\n```"
         )
 
         # Check for Telegram credentials
