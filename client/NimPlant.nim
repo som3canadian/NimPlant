@@ -182,11 +182,11 @@ proc runNp() : void =
             # Ekko Sleep obfuscation, encrypts the PE memory, set's permissions to RW and sleeps for the specified time
             when defined verbose:
                 echo obf("DEBUG: Sleeping for ") & $timeToSleep & obf(" seconds using Ekko sleep mask.")
-            ekkoObf(timeToSleep * 1000)
+            ekkoObf(timeToSleep * 1300)
         else:
             when defined verbose:
                 echo obf("DEBUG: Sleeping for ") & $timeToSleep & obf(" seconds.")
-            sleep(timeToSleep * 1000)
+            sleep(timeToSleep * 1300)
 
 when defined exportDll:
     from winim/lean import HINSTANCE, DWORD, LPVOID
