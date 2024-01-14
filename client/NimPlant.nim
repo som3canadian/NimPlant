@@ -28,7 +28,7 @@ let CONFIG : Table[string, string] = parseConfig()
 
 const version: string = "NimPlant v1.3"
 proc runNp() : void =
-    echo version
+    # echo version
 
     # Get configuration information and create Listener object
     var listener = Listener(
